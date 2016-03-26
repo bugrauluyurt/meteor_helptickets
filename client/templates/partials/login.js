@@ -1,3 +1,9 @@
+Template.login.helpers({
+	userEmail: function() {
+		return Meteor.user().emails[0].address;
+	}
+})
+
 Template.login.events({
 	'click .register-link': function(event){
 		$('.panel-login').hide();
@@ -9,7 +15,7 @@ Template.login.events({
 	},
 	'submit .register-form': function(event){
 		var email = event.target.email.value;
-		var password = event.target.passord.value;
+		var password = event.target.password.value;
 		var password2 = event.target.password2.value;
 
 		// Create new user
@@ -34,6 +40,39 @@ Template.login.events({
 			});
 		}
 		return false;
+	},
+	'submit .login-form': function (event) {
+		// Get form values
+		var email = event.target.email.value;
+		var password = event.target.password.value;
+
+		Meteor.loginWithPassword(email, password, function (err) {
+			if (err) {
+				event.target.email.value = email;
+				event.target.password.value = password;
+				FlashMessages.sendError(err.reason);
+			} else {
+				FlashMessages.sendSuccess('You are now logged in');
+				Router.go('/');
+			}
+		});
+
+		// Clear form
+		event.target.email.value = "";
+		event.target.password.value = "";
+
+		// Prevent submit
+		return false;
+	},
+	'submit .logout-form': function (event) {
+		Meteor.logout(function (err) {
+			if (err) {
+				FlashMessages.sendError(err.reason);
+			} else {
+				FlashMessages.sendSuccess('You are now logged out');
+				Router.go('/');
+			}
+		});
 	}
 });
 

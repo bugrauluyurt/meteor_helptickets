@@ -1,4 +1,18 @@
 <template name="login">
+	{{#if currentUser}}
+		<div class="panel panel-default panel-login">
+			<div class="panel-heading">
+				<h3 class="panel-title">Welcome Back</h3>
+			</div>
+			<div class="panel-body">
+				{{userEmail}}
+				<hr>
+				<form class="logout-form">
+					<button type="submit" class="btn btn-primary">Logout</button>
+				</form>
+			</div>
+		</div>
+	{{else}}
 	<div class="panel panel-default panel-login">
 		<div class="panel-heading">
 			<h3 class="panel-title">Customer Login</h3>
@@ -42,4 +56,5 @@
 			</form>
 		</div>
 	</div>
+	{{/if}}
 </template>
