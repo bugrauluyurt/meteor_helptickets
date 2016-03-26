@@ -13,10 +13,8 @@ Template.login.events({
 		var password2 = event.target.password2.value;
 
 		// Create new user
-		if(isNotEmpty(email) && 
-			isNotEmpty(password) && 
-			isNotEmpty(first_name) && 
-			isNotEmpty(last_name) && 
+		if(	isNotEmpty(email) && 
+			isNotEmpty(password) &&
 			isEmail(email) && 
 			areValidPasswords(password, password2)){
 
@@ -26,16 +24,14 @@ Template.login.events({
 				profile: {
 					usertype: 'customer'
 				}	
-			}, function(err){
+			}, function (err) {
 				if (err) {
-					FlashMessages.sendError('There was an error with registration');
-					Router.go('/');
+					FlashMessages.sendError("There was an error with registration");
 				} else {
-					FlashMessages.sendSuccess('Account Created! You are now logged in');
+					FlashMessages.sendSuccess("Account Created! You are now logged in");
 					Router.go('/');
 				}
 			});
-
 		}
 		return false;
 	}
@@ -46,7 +42,7 @@ Template.login.events({
 // Trim Helper
 var trimInput = function(val){
 	return val.replace(/^\s*|\s*$/g, "");
-}
+};
 
 // Check For Empty Fields
 isNotEmpty = function(value) {
@@ -82,7 +78,7 @@ areValidPasswords = function(password, confirm) {
         return false;
     }
     if (password !== confirm) {
-        FlashMessages.sendError("Passwors do not match");
+        FlashMessages.sendError("Passwords do not match");
         return false;
     }
     return true;
