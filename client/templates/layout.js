@@ -1,6 +1,6 @@
 // Check if staff
 Template.registerHelper('isStaff', function(){
-	if (Meteor.user().profile.usertype == 'staff') {
+	if (Meteor.user().profile.usertype == "staff") {
 		return true;
 	};
 });

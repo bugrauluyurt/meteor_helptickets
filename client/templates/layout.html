@@ -3,7 +3,11 @@
 </body>
 
 <template name="layout">
-	{{> navbar}}
+	{{#if isStaff}}
+		{{> navbar_staff}}
+	{{else}}
+		{{> navbar}}
+	{{/if}}	
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3">
